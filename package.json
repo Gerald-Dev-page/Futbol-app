@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-"scripts": {
+  "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -12,7 +12,9 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "gh": "^2.8.9",
     "lucide-react": "^1.8.0",
+    "pages": "^0.0.16",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
