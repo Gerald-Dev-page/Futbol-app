@@ -1,0 +1,395 @@
+/* ── Clientes Page ───────────────────────────── */
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.page-header h2 { margin-bottom: 0.25rem; }
+
+/* FIX: colores cambiados de azul hardcodeado a variables de marca verde */
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--color-primary-bright);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* ── Demo Banner ── */
+.demo-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--color-warning);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Toast feedback (éxito y error) ── */
+/* FIX: eliminados inline styles del JSX; ahora se maneja todo desde acá */
+.demo-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.25rem;
+  animation: fadeInDown 0.3s ease;
+}
+
+.demo-toast--success {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: var(--color-success);
+}
+
+.demo-toast--error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--color-error);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Form Card ── */
+.form-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  margin-bottom: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.form-group input {
+  background: var(--color-bg-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--color-text-main);
+  font-size: 0.9rem;
+  font-family: var(--font-main);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--color-primary-bright);
+  /* FIX: focus ring en verde de marca, no azul */
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.form-group input::placeholder { color: var(--color-text-muted); opacity: 0.6; }
+
+/* FIX: estado de error en input */
+.form-group input.input-error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.field-error {
+  font-size: 0.75rem;
+  color: var(--color-error);
+  margin-top: 2px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 0.5rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.88;
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+/* FIX: estado disabled visible */
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Tabla ── */
+.table-card { padding: 1.5rem; }
+
+.table-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  margin-bottom: 1rem;
+}
+
+.table-wrapper { overflow-x: auto; }
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.data-table thead tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* íconos dentro del th */
+.data-table th svg {
+  display: inline;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+  transition: var(--transition);
+}
+
+/* FIX: hover en verde de marca, no azul */
+.data-table tbody tr:hover {
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.data-table td { padding: 12px 14px; }
+
+/* FIX: id-badge en verde de marca */
+.id-badge {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-primary-bright);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 99px;
+}
+
+.td-nombre { font-weight: 500; color: var(--color-text-heading); }
+.td-muted  { color: var(--color-text-muted); }
+
+/* ── Productos extras ───────────────────────── */
+
+/* Stat Cards */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .stats-row { grid-template-columns: 1fr; }
+}
+
+.stat-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: var(--transition);
+}
+
+/* FIX: hover en verde de marca */
+.stat-card:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+/* Select dark */
+.form-group select {
+  background: var(--color-bg-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--color-text-main);
+  font-size: 0.9rem;
+  font-family: var(--font-main);
+  transition: var(--transition);
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  border-color: var(--color-primary-bright);
+  /* FIX: focus ring en verde de marca */
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Badges tabla */
+.tipo-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.02em;
+}
+
+.td-precio {
+  font-weight: 600;
+  color: var(--color-success);
+  font-variant-numeric: tabular-nums;
+}
+
+.estado-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.estado-badge.activo {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--color-success);
+}
+
+.estado-badge.inactivo {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--color-error);
+}
+/* ─────────────────────────────────────────────────────────
+   AGREGAR AL FINAL DE clientes.css
+   Clases nuevas requeridas por Productos.jsx
+   ───────────────────────────────────────────────────────── */
+
+/* ── Form row de 3 columnas (marca + lista + transferencia) ── */
+.form-row-3 {
+  grid-template-columns: 1fr 1fr 1fr ;
+}
+
+@media (max-width: 700px) {
+  .form-row-3 { grid-template-columns: 1fr; }
+}
+
+/* ── Imagen de producto en tabla ── */
+/* FIX: reemplaza inline style de la img en Productos.jsx */
+.producto-img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  display: block;
+  background: var(--color-bg-hover);
+}
+
+/* ── Stat icon variantes de color (antes inline styles) ── */
+.stat-icon-blue {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-primary-bright);
+}
+
+.stat-icon-green {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--color-success);
+}
+
+.stat-icon-amber {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--color-warning);
+}
+
+/* ── Precio transferencia — variante más suave del td-precio ── */
+/* FIX: reemplaza style={{ color: '#059669', fontWeight: '600' }} */
+.td-precio-transferencia {
+  color: var(--color-primary-hover);
+  font-weight: 600;
+}

@@ -1,0 +1,147 @@
+/* src/styles/global.css */
+
+:root {
+  /* ── Paleta Fútbol Premium (Dark Mode) ── */
+  /* Colores de marca: Verde césped profesional y dinámico */
+  --color-primary:        #047857; /* Verde técnico oscuro (Base) */
+  --color-primary-bright: #10B981; /* Verde acción (Llamados a la acción/CTA) */
+  --color-primary-hover:  #059669; /* Verde intermedio para estados hover */
+
+  /* Colores semánticos (Alta legibilidad UX) */
+  --color-success:  #22C55E;
+  --color-error:    #EF4444; /* Rojo vibrante (Tarjeta roja / Errores) */
+  --color-warning:  #F59E0B; /* Amarillo ámbar (Tarjeta amarilla / Alertas) */
+
+  /* Backgrounds (Inspiración asfalto/estadio nocturno para alto contraste) */
+  --color-bg-main:    #0F1115; /* Fondo profundo para descanso visual */
+  --color-bg-card:    #181B21; /* Tarjetas de producto ligeramente elevadas */
+  --color-bg-hover:   #22262E; /* Feedback visual sutil en listas o grillas */
+
+  /* Borders & Text (Jerarquía visual de lectura) */
+  --color-border:       #2A303A; /* Delimitadores limpios, no intrusivos */
+  --color-text-main:    #E2E8F0; /* Texto base con contraste óptimo (WCAG AAA) */
+  --color-text-muted:   #94A3B8; /* Descripciones secundarias de productos */
+  --color-text-heading: #FFFFFF; /* Títulos de secciones nítidos */
+
+  /* Gradients (Modernidad para banners o tarjetas destacadas) */
+  --gradient-primary: linear-gradient(135deg, #047857, #10B981);
+  --gradient-success: linear-gradient(135deg, #166534, #22C55E);
+  --gradient-card:    linear-gradient(145deg, #181B21, #0F1115);
+
+  /* Sistema de diseño */
+  --radius-sm: 6px;  /* Bordes ligeramente más angulares para un look deportivo */
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 10px 25px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15); /* Resplandor alineado al verde principal */
+
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── 1. Reset Total ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+  font-family: var(--font-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 2. Layout Responsive ── */
+.page-container {
+  width: 100%;
+  flex-grow: 1;
+  padding: 1rem;
+  transition: var(--transition);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 90px;
+    padding-left: 0 !important;
+  }
+
+  .page-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 1rem !important;
+    overflow-x: hidden;
+  }
+}
+
+@media (min-width: 769px) {
+  .page-container {
+    margin-left: 220px;
+    width: calc(100% - 260px);
+    padding: 2rem;
+  }
+}
+
+/* ── 3. Componentes Genéricos ── */
+.card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  width: 100%;
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: rgba(16, 185, 129, 0.4); /* Hover reflectante con el color de la marca */
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px); /* Ligeramente más pronunciado para e-commerce */
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  transition: var(--transition);
+}
+
+/* ── 4. Scrollbar Dark ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-bright);
+}

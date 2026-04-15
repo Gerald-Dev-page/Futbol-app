@@ -1,0 +1,181 @@
+/* src/styles/stock.css */
+
+/* ── Form card con margen extra (antes inline style) ── */
+.form-card-stock {
+  margin-bottom: 1.5rem;
+}
+
+/* ── Form row con proporciones flex (antes inline styles flex: 2 / 1) ── */
+.form-row-stock {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .form-row-stock { grid-template-columns: 1fr; }
+}
+
+/* Clases modifier para columnas flex (por si se reutiliza en otros forms) */
+.form-col-2 { grid-column: span 1; } /* ya controlado por grid-template */
+.form-col-1 { grid-column: span 1; }
+
+/* ── Stat icon — rojo (agotados) ── */
+/* FIX: reemplaza inline style de los 3 stat-icon en Stock.jsx */
+.stat-icon-red {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--color-error);
+}
+
+/* ── Stat cards filtrables ── */
+.stock-stats {
+  grid-template-columns: repeat(3, 1fr);
+  cursor: pointer;
+}
+
+.stat-clickable { cursor: pointer; }
+
+.stat-active-success {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.15) !important;
+}
+.stat-active-warning {
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.15) !important;
+}
+.stat-active-error {
+  border-color: rgba(220, 38, 38, 0.5) !important;
+  box-shadow: 0 0 16px rgba(220, 38, 38, 0.15) !important;
+}
+
+/* ── Filtro activo label ── */
+.filtro-activo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.filtro-activo strong { color: var(--color-text-main); }
+
+.filtro-clear {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filtro-clear:hover {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--color-error);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+/* ── Celda modelo: subtítulo de marca ── */
+/* FIX: reemplaza style={{ display:'block', fontSize:'0.8em', color:'#666' }} */
+.td-submarca {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* ── Celda talle ── */
+/* FIX: reemplaza style={{ fontSize: '1.1em' }} */
+.td-talle {
+  font-size: 1.05rem;
+}
+
+/* ── Stock cell con barra ── */
+.stock-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 80px;
+}
+
+.stock-num {
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.estado-success { color: var(--color-success); }
+.estado-warning { color: var(--color-warning); }
+.estado-error   { color: var(--color-error);   }
+
+.stock-bar-track {
+  height: 4px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 99px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.stock-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fill-success { background: var(--color-success); }
+.fill-warning { background: var(--color-warning); }
+.fill-error   { background: var(--color-error);   }
+
+/* ── Estado badge ── */
+.estado-badge-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.color-success { background: rgba(34,197,94,0.12);  color: var(--color-success); }
+.color-warning { background: rgba(245,158,11,0.12); color: var(--color-warning); }
+.color-error   { background: rgba(220,38,38,0.12);  color: var(--color-error);   }
+
+/* ── Botón reponer (definido para uso futuro) ── */
+/* FIX: color corregido de azul a verde de marca */
+.btn-reponer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--color-primary-bright);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-reponer:hover {
+  background: rgba(16, 185, 129, 0.22);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .stock-stats { grid-template-columns: 1fr; }
+
+  /* Ocultar columnas menos críticas en móvil */
+  .data-table th:nth-child(3),
+  .data-table td:nth-child(3),
+  .data-table th:nth-child(5),
+  .data-table td:nth-child(5) {
+    display: none;
+  }
+}
