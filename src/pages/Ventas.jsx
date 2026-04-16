@@ -25,7 +25,9 @@ export default function Ventas() {
   const [saving, setSaving]   = useState(false);
   const [toast, setToast]     = useState({ show: false, type: "success", message: "" });
 
-  const [busquedaCliente, setBusquedaCliente] = useState("");
+  const [busquedaCliente, setBusquedaCliente]   = useState("");
+  const [busquedaProducto, setBusquedaProducto] = useState(""); // ── NUEVO ESTADO PARA BUSCADOR BOTÍN
+  
   const [formData, setFormData] = useState({
     id_cliente:      "",
     id_producto:     "",
@@ -59,6 +61,7 @@ export default function Ventas() {
 
   useEffect(() => { loadData(); }, []);
 
+  // ── Buscador Cliente ──
   const handleClienteBuscador = (e) => {
     const val = e.target.value;
     setBusquedaCliente(val);
@@ -68,25 +71,49 @@ export default function Ventas() {
     setFormData((prev) => ({ ...prev, id_cliente: encontrado?.id_cliente || "" }));
   };
 
+  // ── Buscador Botín (NUEVO) ──
+  const handleProductoBuscador = (e) => {
+    const val = e.target.value;
+    setBusquedaProducto(val);
+    
+    // Buscamos coincidencia exacta con el string mostrado en el datalist
+    const encontrado = productos.find(
+      (p) => `${p.nombre} (${p.marca})`.toLowerCase() === val.toLowerCase()
+    );
+
+    setFormData((prev) => {
+      let next = { ...prev, id_producto: encontrado?.id_producto || "", talle_us: "" };
+
+      if (encontrado) {
+        let claveExcel = "precio";
+        if (next.tipo_precio === "precio_transferencia") {
+          claveExcel = "precio_transferencia" in encontrado ? "precio_transferencia" : "precio con transferencia";
+        }
+        next.precio_unitario = Number(encontrado[claveExcel]) || 0;
+      } else {
+        next.precio_unitario = 0;
+      }
+
+      next.total = next.precio_unitario * next.cantidad;
+      return next;
+    });
+  };
+
+  // ── Manejo de Cambios (Tipo Pago, Talle, Cantidad) ──
   const handleChange = (e) => {
     const { name, value } = e.target;
     let next = { ...formData, [name]: value };
 
     const prod = productos.find(
-      (p) => p.id_producto === (name === "id_producto" ? value : next.id_producto)
+      (p) => p.id_producto === next.id_producto
     );
 
-    if (prod) {
-      if (name === "id_producto" || name === "tipo_precio") {
-        // Soporta ambos nombres de columna posibles en Google Sheets
+    if (prod && name === "tipo_precio") {
         let claveExcel = "precio";
         if (next.tipo_precio === "precio_transferencia") {
           claveExcel = "precio_transferencia" in prod ? "precio_transferencia" : "precio con transferencia";
         }
-        
         next.precio_unitario = Number(prod[claveExcel]) || 0;
-        if (name === "id_producto") next.talle_us = "";
-      }
     }
 
     const cant = name === "cantidad" ? parseInt(value) || 0 : next.cantidad;
@@ -147,8 +174,14 @@ export default function Ventas() {
       });
 
       setHistorial([nuevaVenta, ...historial]);
+      
+      // Limpiamos los inputs
+      setBusquedaCliente("");
+      setBusquedaProducto("");
+      
       setFormData((prev) => ({
         ...prev,
+        id_cliente:      "",
         id_producto:     "",
         talle_us:        "",
         cantidad:        1,
@@ -220,16 +253,28 @@ export default function Ventas() {
         </div>
 
         <div className="ventas-row">
+          
+          {/* ── CAMBIO: Input Datalist para Botines ── */}
           <div className="form-group venta-col-producto">
             <label><Package size={13} /> Botín</label>
-            <select name="id_producto" value={formData.id_producto} onChange={handleChange} required>
-              <option value="">— Seleccione —</option>
+            <input
+              list="lista-productos"
+              placeholder="Buscar modelo o marca..."
+              value={busquedaProducto}
+              onChange={handleProductoBuscador}
+              autoComplete="off"
+            />
+            <datalist id="lista-productos">
               {productos.map((p) => (
-                <option key={p.id_producto} value={p.id_producto}>
-                  {p.nombre} ({p.marca})
-                </option>
+                <option key={p.id_producto} value={`${p.nombre} (${p.marca})`} />
               ))}
-            </select>
+            </datalist>
+            {busquedaProducto && !formData.id_producto && (
+              <small className="field-hint error">Botín no encontrado en catálogo.</small>
+            )}
+            {formData.id_producto && (
+              <small className="field-hint success">✓ Producto seleccionado</small>
+            )}
           </div>
 
           <div className="form-group venta-col-pago">
